@@ -1,7 +1,7 @@
 #Use latest 
 FROM jboss/base-jdk:8
 
-ADD ../files/jboss-eap-6.3.0.zip /tmp/
+ADD ../files/jboss-eap-6.4.0.zip /tmp/
 RUN unzip /tmp/jboss-eap-6.4.0.zip -d /opt/jboss
 
 # Set EAP_HOME environment variable
