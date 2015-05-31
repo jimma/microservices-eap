@@ -1,6 +1,18 @@
 #!/bin/bash
 ${JBOSS_HOME}/bin/standalone.sh -c standalone-ha.xml&
-sleep 5
+JBOSS_CONSOLE_LOG=${JBOSS_HOME}/standalone/log/server.log
+STARTUP_WAIT=30
+count=0
+until [ $count -gt $STARTUP_WAIT ]
+   do
+     grep 'JBAS015874:' $JBOSS_CONSOLE_LOG > /dev/null 
+     if [ $? -eq 0 ] ; then
+       launched=true
+       break
+     fi 
+     sleep 5
+     let count=$count+1;
+   done
 ${JBOSS_HOME}/bin/jboss-cli.sh --connect <<EOF
 batch
 module add --name=org.mysql --resources=/mysql-connector-java-5.1.25.jar --dependencies=javax.api,javax.transaction.api
