@@ -1,4 +1,6 @@
 #Use image built from eap folder 
 FROM eap6
-ADD presentation.war ${JBOSS_HOME}/standalone/deployments/presentation.war
-CMD ["${JBOSS_HOME}/bin/standalone.sh"]
+ADD shared/presentation.war ${JBOSS_HOME}/standalone/deployments/presentation.war
+ADD frontend.sh /frontend.sh
+EXPOSE 7600 57600
+CMD ["/frontend.sh"]
